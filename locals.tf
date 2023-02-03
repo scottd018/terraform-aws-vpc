@@ -12,4 +12,6 @@ locals {
   nat_gateway_tags = var.all_tags
 
   internet_gateway_tags = local.vpc_tags
+
+  route_table_tags = var.all_tags
 }
