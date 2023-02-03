@@ -27,8 +27,8 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.managed.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.public[count.index].id
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.public[count.index].id
   }
 
   tags = merge(
