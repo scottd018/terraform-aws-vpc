@@ -14,7 +14,7 @@ resource "aws_eip" "nat_gateway" {
 
   tags = merge(
     local.nat_gateway_tags,
-    { "Name" = "${var.vpc_name}-natgw-${aws_subnet.public[count.index].tags["Name"]}" }
+    { "Name" = "${var.vpc_name}-natgw-${aws_subnet.public[count.index].availability_zone}" }
   )
 
   depends_on = [aws_internet_gateway.internet_gateway]
@@ -29,6 +29,6 @@ resource "aws_nat_gateway" "public" {
 
   tags = merge(
     local.nat_gateway_tags,
-    { "Name" = "${var.vpc_name}-natgw-${aws_subnet.public[count.index].tags["Name"]}" }
+    { "Name" = "${var.vpc_name}-natgw-${aws_subnet.public[count.index].availability_zone}" }
   )
 }
