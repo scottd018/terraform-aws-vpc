@@ -19,9 +19,14 @@ variable "vpc_tags" {
 }
 
 variable "vpc_connectivity" {
-  description = "Connectivity for VPC.  Must be 'public', 'vpn', 'private' ('public' only supported for now.)"
+  description = "Connectivity for VPC.  Must be 'public', 'vpn', 'private' ('public' only supported for now)"
   type        = string
   default     = "public"
+
+  validation {
+    condition     = contains(["public"], var.vpc_connectivity)
+    error_message = "vpc_connectivity must be one of: ['public']."
+  }
 }
 
 #
