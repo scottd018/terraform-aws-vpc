@@ -1,5 +1,9 @@
+locals {
+  public_subnet_count = var.vpc_connectivity != "private" ? var.subnet_count : 0
+}
+
 resource "aws_subnet" "public" {
-  count = var.subnet_count
+  count = local.public_subnet_count
 
   vpc_id                  = aws_vpc.managed.id
   cidr_block              = local.subnets_public[count.index]

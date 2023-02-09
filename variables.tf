@@ -24,10 +24,80 @@ variable "vpc_connectivity" {
   default     = "public"
 
   validation {
-    condition     = contains(["public"], var.vpc_connectivity)
+    condition     = contains(["public", "vpn"], var.vpc_connectivity)
     error_message = "vpc_connectivity must be one of: ['public']."
   }
 }
+
+#
+# vpn
+#
+variable "vpn_connection_name" {
+  description = "The name used for the VPN connection"
+  type        = string
+  default     = "remote-site"
+}
+
+variable "vpn_ip_address" {
+  description = "The IP address on the local site where the VPN is running"
+  type        = string
+  default     = null
+}
+
+variable "vpn_local_networks" {
+  description = "Network CIDRs on the local site used for routing through the VPN"
+  type        = list(string)
+  default     = []
+}
+
+variable "vpn_integrity_alogrithm" {
+  description = "The VPN integrity algorithm to use when setting up the site-to-site VPN"
+  type        = string
+  default     = "SHA2-512"
+
+  validation {
+    condition     = contains(["SHA1", "SHA2-256", "SHA2-384", "SHA2-512"], var.vpn_integrity_alogrithm)
+    error_message = "vpn_integrity_alogrithm must be one of: ['SHA1', 'SHA2-256', 'SHA2-384', 'SHA2-512']."
+  }
+}
+
+variable "vpn_encryption_alogrithm" {
+  description = "The VPN encryption algorithm to use when setting up the site-to-site VPN"
+  type        = string
+  default     = "AES256"
+
+  validation {
+    condition     = contains(["AES128", "AES256", "AES128-GCM-16", "AES256-GCM-16"], var.vpn_encryption_alogrithm)
+    error_message = "vpn_encryption_alogrithm must be one of: ['AES128', 'AES256', 'AES128-GCM-16', 'AES256-GCM-16']."
+  }
+}
+
+/* variable "vpn_internet_connectivity" {
+  description = "How to route traffic when 'vpc_connectivity' is set to 'vpn' ('egress-gw' or 'local')"
+  type        = string
+  default     = "egress-gw"
+
+  validation {
+    condition     = contains(["egress-gw", "local"], var.vpn_internet_connectivity)
+    error_message = "vpn_internet_connectivity must be one of: ['egress-gw', 'local']."
+  }
+} */
+
+/* variable "vpn_bgp_asn" {
+  description = "BGP ASN used for the VPN connection.  Randomized if empty (must be between 65000 and 2147483647)"
+  type        = number
+  default     = 65000
+
+  validation {
+    condition = (
+      var.vpn_bgp_asn == null || (
+        var.vpn_bgp_asn >= 65000 &&
+        var.vpn_bgp_asn <= 2147483647
+      )
+    )
+    error_message = "vpn_bgp_asn must be between 65000 and 2147483647, or null for a random number."
+  }
+} */
 
 #
 # subnet
