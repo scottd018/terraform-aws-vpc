@@ -15,6 +15,4 @@ locals {
   vpn_gateway_tags      = local.vpc_tags
 
   route_table_tags = var.all_tags
-
-  #egress_gw_enabled = (var.vpc_connectivity == "vpn" && var.vpn_internet_connectivity == "egress-gw")
 }

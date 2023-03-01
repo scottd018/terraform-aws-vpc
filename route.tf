@@ -50,32 +50,6 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.private[count.index].id
 }
 
-/* #
-# egress subnet routes
-#
-resource "aws_route_table" "egress" {
-  count = local.egress_gw_enabled ? 1 : 0
-
-  vpc_id = aws_vpc.managed.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_egress_only_internet_gateway.vpn[0].id
-  }
-
-  tags = merge(
-    local.route_table_tags,
-    { "Name" = "${var.vpc_name}-egress" }
-  )
-}
-
-resource "aws_route_table_association" "egress" {
-  count = local.egress_gw_enabled ? var.subnet_count : 0
-
-  subnet_id      = aws_subnet.private[count.index].id
-  route_table_id = aws_route_table.egress[0].id
-} */
-
 #
 # vpn subnet routes
 #

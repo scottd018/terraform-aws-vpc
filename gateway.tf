@@ -96,11 +96,3 @@ resource "aws_vpn_connection" "vpn" {
 
   tags = local.vpn_gateway_tags
 }
-
-/* resource "aws_egress_only_internet_gateway" "vpn" {
-  count = local.egress_gw_enabled ? 1 : 0
-
-  vpc_id = aws_vpc.managed.id
-
-  tags = local.internet_gateway_tags
-} */

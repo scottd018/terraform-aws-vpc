@@ -72,18 +72,7 @@ variable "vpn_encryption_alogrithm" {
   }
 }
 
-/* variable "vpn_internet_connectivity" {
-  description = "How to route traffic when 'vpc_connectivity' is set to 'vpn' ('egress-gw' or 'local')"
-  type        = string
-  default     = "egress-gw"
-
-  validation {
-    condition     = contains(["egress-gw", "local"], var.vpn_internet_connectivity)
-    error_message = "vpn_internet_connectivity must be one of: ['egress-gw', 'local']."
-  }
-} */
-
-/* variable "vpn_bgp_asn" {
+variable "vpn_bgp_asn" {
   description = "BGP ASN used for the VPN connection.  Randomized if empty (must be between 65000 and 2147483647)"
   type        = number
   default     = 65000
@@ -97,7 +86,7 @@ variable "vpn_encryption_alogrithm" {
     )
     error_message = "vpn_bgp_asn must be between 65000 and 2147483647, or null for a random number."
   }
-} */
+}
 
 #
 # subnet
